@@ -3,41 +3,42 @@ package com.example.bookstore.activites
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.activity.viewModels
+import com.example.bookstore.Adapters.BookAdapter
+
 import com.example.bookstore.databinding.ActivityMainBinding
-import com.example.bookstore.pojo.BookList
-import com.example.bookstore.retrofit.RetrofitInstance
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.bookstore.models.BooksResponse
+import com.example.bookstore.viewModels.BookViewModel
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val bookLiveData = MutableLiveData<BookList>()
+    private val viewModel: BookViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView( binding)
-        getData()
+        setContentView(binding.root)
+        getBooks()
+        setupObserver()
     }
 
-    private fun getData() {
-        RetrofitInstance.bookApi.getRandomBookList().enqueue(object : Callback<BookList?> {
-            override fun onResponse(call: Call<BookList?>, response: Response<BookList?>) {
-                response.body()?.let { bookList ->
-                    bookLiveData.postValue(bookList)
-                }
-            }
+    private fun setupObserver() {
+        viewModel.books.observe(this) {
+            Log.d("TAG", "setupObserver: ${it.books}")
+            setData(it)
 
-            override fun onFailure(call: Call<BookList?>, t: Throwable) {
-                Log.e("Test", "Error fetching book: ${t.message}")
-            }
-
-        })
+        }
     }
 
-    fun observeBookLiveData(): LiveData<BookList> = bookLiveData
+
+    private fun getBooks() {
+        viewModel.getBooks()
+    }
+
+    private fun setData(data:BooksResponse) {
+        val adapter = BookAdapter(data.books)
+        binding.rvBooks.adapter = adapter
+    }
 
 }

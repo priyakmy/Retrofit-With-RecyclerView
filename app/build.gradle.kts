@@ -1,7 +1,10 @@
+import org.jetbrains.kotlin.gradle.tasks.Kapt
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -59,7 +62,10 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
     //viewmodel
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-rc01")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0-rc01")
-    implementation ("android.arch.lifecycle:extensions:1.1.0")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation ("androidx.activity:activity-ktx:1.9.0")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
 }

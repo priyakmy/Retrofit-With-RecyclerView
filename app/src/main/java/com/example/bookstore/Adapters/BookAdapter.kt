@@ -2,39 +2,40 @@ package com.example.bookstore.Adapters
 
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bookstore.Model.BookViewModel
-import com.example.bookstore.R
+import com.bumptech.glide.Glide
+import com.example.bookstore.databinding.ItemBooksBinding
+import com.example.bookstore.models.Book
 
-class BookAdapter(private val mList: List<BookViewModel>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
+class BookAdapter(private val mList: List<Book>) :
+    RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.bookcardviewlayout, parent, false)
-
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
+        val binding = ItemBooksBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return BookViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        val BookViewModel = mList[position]
-
-        holder.imageView.setImageResource(BookViewModel.image)
-        holder.textView.text = BookViewModel.text
-
+    override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
+        val book = mList.get(position)
+        holder.setData(book)
     }
 
     override fun getItemCount(): Int {
         return mList.size
     }
 
-    class ViewHolder(BookView: View) : RecyclerView.ViewHolder(BookView) {
-        val imageView: ImageView = itemView.findViewById(R.id.imgBook)
-        val textView: TextView = itemView.findViewById(R.id.tvBookName)
+    inner class BookViewHolder(val binding: ItemBooksBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun setData(data: Book) {
+            binding.tvTitle.text = data.title
+            binding.tvSubTitle.text = data.description
+            setImage(data.coverImage)
+
+        }
+
+        private fun setImage(img: String) {
+            Glide.with(binding.root.context).load(img).into(binding.ivImg)
+        }
     }
 }

@@ -1,12 +1,11 @@
-package com.example.bookstore.pojo
-
+package com.example.bookstore.models
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
-import android.os.Parcelable
-
-@Parcelize
-data class BookListItem(
+data class BooksResponse(
+    @SerializedName("books")
+    val books: List<Book>
+)
+data class Book(
     @SerializedName("author")
     val author: String = "",
     @SerializedName("cover_image")
@@ -18,7 +17,7 @@ data class BookListItem(
     @SerializedName("id")
     val id: Int = 0,
     @SerializedName("publication_year")
-    val publicationYear: Int = 0,
+    val publicationYear: String? = "",
     @SerializedName("title")
     val title: String = ""
-) : Parcelable
+)
