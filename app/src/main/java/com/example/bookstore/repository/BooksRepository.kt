@@ -1,9 +1,7 @@
 package com.example.bookstore.repository
 
 import android.util.Log
-import com.example.bookstore.Adapters.BookAdapter
 import com.example.bookstore.models.Book
-import com.example.bookstore.models.BooksResponse
 import com.example.bookstore.retrofit.RetrofitInstance
 import com.example.bookstore.utils.JsonDataHolder
 import retrofit2.Call
@@ -12,7 +10,7 @@ import retrofit2.Response
 
 class BooksRepository {
 
-fun getBooks() = JsonDataHolder.booksResponse
+// fun getBooks(param: (Any) -> Unit) = JsonDataHolder.booksResponse
 
 
     fun getBookFromApi(callBack:(List<Book>) -> Unit) {
@@ -26,12 +24,13 @@ fun getBooks() = JsonDataHolder.booksResponse
 
             override fun onFailure(call: Call<List<Book>>, t: Throwable) {
 
-                Log.d("TAG" , "OnFaliure:" + t.message)
+                Log.d("TAG" , "OnFailure:" + t.message)
 
             }
 
 
         })
+
 
     }
 }
