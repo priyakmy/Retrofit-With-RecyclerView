@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity()
         val adapter = BookAdapter(books)
         binding.rvBooks.adapter = adapter
     }
-    private fun setupButtonClickListener(){
-       binding.btnStudent.setOnClickListener() {
+    private fun setupButtonClickListener() {
+       binding.btnStudent.setOnClickListener {
             val intent = Intent(this, StudentActivity::class.java)
             startActivity(intent)
         }

@@ -10,9 +10,6 @@ import retrofit2.Response
 
 class BooksRepository {
 
-// fun getBooks(param: (Any) -> Unit) = JsonDataHolder.booksResponse
-
-
     fun getBookFromApi(callBack:(List<Book>) -> Unit) {
         RetrofitInstance.bookApi.getRandomBookList().enqueue(object : Callback<List<Book>>{
             override fun onResponse(call: Call<List<Book>>, response: Response<List<Book>>) {
@@ -24,13 +21,8 @@ class BooksRepository {
 
             override fun onFailure(call: Call<List<Book>>, t: Throwable) {
 
-                Log.d("TAG" , "OnFailure:" + t.message)
-
+                Log.d("TAG", "OnFailure:" + t.message)
             }
-
-
         })
-
-
     }
 }
