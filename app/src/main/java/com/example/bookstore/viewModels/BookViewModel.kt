@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bookstore.models.Book
 import com.example.bookstore.repository.BooksRepository
-import com.example.bookstore.retrofit.RetrofitInstance
 
 
 class BookViewModel : ViewModel() {
@@ -22,8 +21,6 @@ class BookViewModel : ViewModel() {
             _books.value = it
         }
         Log.d("TAG", "getBooks vmn" + toString())
-       // _books.value = res
-//        _books.value = RetrofitInstance.bookApi.getRandomBookList()
 
     }
 }
