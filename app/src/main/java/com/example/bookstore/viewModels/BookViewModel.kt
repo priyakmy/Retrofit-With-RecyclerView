@@ -11,17 +11,19 @@ import com.example.bookstore.retrofit.RetrofitInstance
 
 class BookViewModel : ViewModel() {
 
-    private val _books = MutableLiveData() <List<Book>>()
+    private val _books: MutableLiveData<List<Book>> = MutableLiveData()
     val books: LiveData<List<Book>> = _books
 
 
 
     fun getBooks() {
         val repo = BooksRepository()
-        val res = repo.getBookFromApi()
+        repo.getBookFromApi() {
+            _books.value = it
+        }
         Log.d("TAG", "getBooks vmn" + toString())
        // _books.value = res
-        _books.value = RetrofitInstance.bookApi.getRandomBookList()
+//        _books.value = RetrofitInstance.bookApi.getRandomBookList()
 
     }
 }

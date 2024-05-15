@@ -7,17 +7,15 @@ data class BooksResponse(
 )
 data class Book(
     @SerializedName("author")
-    val author: String = "",
+    val author: String? = "",
     @SerializedName("cover_image")
-    val coverImage: String = "",
+    val coverImage: String? = "",
     @SerializedName("description")
-    val description: String = "",
+    val description: String? = "",
     @SerializedName("genre")
-    val genre: List<String> = listOf(),
-    @SerializedName("id")
-    val id: Int = 0,
+    val genre: List<String>? = listOf(),
     @SerializedName("publication_year")
     val publicationYear: String? = "",
     @SerializedName("title")
-    val title: String = ""
+    val title: String? = ""
 )

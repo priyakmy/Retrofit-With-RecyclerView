@@ -15,10 +15,11 @@ class BooksRepository {
 fun getBooks() = JsonDataHolder.booksResponse
 
 
-    fun getBookFromApi(){
+    fun getBookFromApi(callBack:(List<Book>) -> Unit) {
         RetrofitInstance.bookApi.getRandomBookList().enqueue(object : Callback<List<Book>>{
             override fun onResponse(call: Call<List<Book>>, response: Response<List<Book>>) {
                 val data = response.body()!!
+                callBack.invoke(data)
 
                 Log.d("TAG" ,data.toString())
             }
