@@ -8,8 +8,14 @@ import com.bumptech.glide.Glide
 import com.example.bookstore.databinding.ItemBooksBinding
 import com.example.bookstore.models.Book
 
-class BookAdapter(private val mList: List<Book>) :
+class BookAdapter(private var mList: List<Book>) :
     RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
+
+
+    fun setBookList(mList: List<Book>){
+        this.mList = mList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val binding = ItemBooksBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,7 +23,7 @@ class BookAdapter(private val mList: List<Book>) :
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        val book = mList.get(position)
+        val book = mList[position]
         holder.setData(book)
     }
 
@@ -25,12 +31,12 @@ class BookAdapter(private val mList: List<Book>) :
         return mList.size
     }
 
-    inner class BookViewHolder(val binding: ItemBooksBinding) :
+    inner class BookViewHolder(private val binding: ItemBooksBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun setData(data: Book) {
             binding.tvTitle.text = data.title
             binding.tvSubTitle.text = data.description
-            setImage(data.coverImage)
+            data.coverImage?.let { setImage(it) }
 
         }
 

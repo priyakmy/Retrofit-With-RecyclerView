@@ -5,6 +5,7 @@ data class BooksResponse(
     @SerializedName("books")
     val books: List<Book>
 )
+
 data class Book(
     @SerializedName("author")
     val author: String? = "",
