@@ -16,9 +16,9 @@ class BookViewModel : ViewModel() {
 
     fun getBooks() {
         val repo = BooksRepository()
-        val res = repo.getBooks()
-        Log.d("TAG", "getBooks vmn: ${res.books}")
-        _books.value = res
+        val res = repo.getBookFromApi()
+       // Log.d("TAG", "getBooks vmn: ${res.books}")
+       // _books.value = res
 
     }
 }
