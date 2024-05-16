@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.bookstore.databinding.ItemBooksBinding
 import com.example.bookstore.models.Book
 
-class BookAdapter(private var mList: List<Book>) :
+class BookAdapter(private var mList: List<Book>,val onClick:(Book)->Unit) :
     RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -35,6 +35,10 @@ class BookAdapter(private var mList: List<Book>) :
             binding.tvTitle.text = data.title
             binding.tvSubTitle.text = data.description
             data.coverImage?.let { setImage(it) }
+
+            binding.cardView.setOnClickListener {
+                onClick.invoke(data)
+            }
         }
 
         private fun setImage(img: String) {

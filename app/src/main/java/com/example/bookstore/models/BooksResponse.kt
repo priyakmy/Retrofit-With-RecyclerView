@@ -1,11 +1,15 @@
 package com.example.bookstore.models
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+
 data class BooksResponse(
     @SerializedName("books")
     val books: List<Book>
 )
 
+@Parcelize
 data class Book(
     @SerializedName("author")
     val author: String? = "",
@@ -19,4 +23,4 @@ data class Book(
     val publicationYear: String? = "",
     @SerializedName("title")
     val title: String? = ""
-)
+):Parcelable
